@@ -55,3 +55,22 @@ function game() {
   }
 }
 game();
+
+// make the final score
+
+function finalScore() {
+  console.log(
+    "------------------------------------------",
+    "\n ",
+    `\nThe final player score is: ${playerScore}`,
+    `\nThe final computer score is: ${computerScore}`
+  );
+  if (playerScore > computerScore) {
+    console.log("Congratulation you are The Winner");
+  } else if (computerScore > playerScore) {
+    console.log("You Lost try again");
+  } else {
+    console.log("No Winner!");
+  }
+}
+finalScore();
