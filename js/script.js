@@ -20,7 +20,9 @@ function playRound(playerSelection, computerSelection) {
   }
   return result;
 }
-// making a best-of-five game and add score for each player
+
+// make a best-of-five game and add score for each player
+
 let playerScore = 0;
 let computerScore = 0;
 
@@ -53,19 +55,3 @@ function game() {
   }
 }
 game();
-function finalScore() {
-  console.log(
-    "------------------------------------------",
-    "\n ",
-    `\nThe final player score is: ${playerScore}`,
-    `\nThe final computer score is: ${computerScore}`
-  );
-  if (playerScore > computerScore) {
-    console.log("Congratulation you are The Winner");
-  } else if (computerScore > playerScore) {
-    console.log("You Lost try again");
-  } else {
-    console.log("No Winner!");
-  }
-}
-finalScore();
