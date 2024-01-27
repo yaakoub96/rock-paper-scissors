@@ -1,11 +1,12 @@
 const selection = ["rock", "paper", "scissors"];
-
 let computerSelection;
+
 function getComputerChoice() {
   return selection[Math.floor(Math.random() * selection.length)];
 }
 
 let result;
+
 function playRound(playerSelection, computerSelection) {
   if (
     (playerSelection == "rock" && computerSelection == "scissors") ||
@@ -14,10 +15,12 @@ function playRound(playerSelection, computerSelection) {
   ) {
     result = `You Win! ${playerSelection} beat ${computerSelection}`;
   } else if (playerSelection == computerSelection) {
-    result = `No Winner "Your selection is ${playerSelection} and Computer selection is ${computerSelection} too"`;
+    result = `No Winner "Your selection is ${playerSelection} 
+              and Computer selection is ${computerSelection} too"`;
   } else {
     result = `You Lose! ${computerSelection} beat ${playerSelection}`;
   }
+
   return result;
 }
 
@@ -34,7 +37,8 @@ function game() {
     ).toLowerCase();
     computerSelection = getComputerChoice();
     playRound(playerSelection, computerSelection);
-    console.log(`Round ${i}`);
+    console.log(`Round `, i);
+
     if (result.charAt(4) == "W") {
       console.log(
         `player score ${playerScore++}`,
@@ -51,14 +55,16 @@ function game() {
         `computer score ${computerScore}`
       );
     }
+
     console.log(playRound(playerSelection, computerSelection), "\n ");
   }
 }
+
 game();
 
 // make the final score
 
-function finalScore() {
+function getFinalScore() {
   console.log(
     "------------------------------------------",
     "\n ",
@@ -73,4 +79,5 @@ function finalScore() {
     console.log("No Winner!");
   }
 }
+
 finalScore();
