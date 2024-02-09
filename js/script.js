@@ -1,83 +1,72 @@
-const selection = ["rock", "paper", "scissors"];
 let computerSelection;
+let playerSelection;
 
+const selection = ["rock", "paper", "scissors"];
 function getComputerChoice() {
   return selection[Math.floor(Math.random() * selection.length)];
 }
 
-let result;
-
-function playRound(playerSelection, computerSelection) {
-  if (
-    (playerSelection == "rock" && computerSelection == "scissors") ||
-    (playerSelection == "scissors" && computerSelection == "paper") ||
-    (playerSelection == "paper" && computerSelection == "rock")
-  ) {
-    result = `You Win! ${playerSelection} beat ${computerSelection}`;
-  } else if (playerSelection == computerSelection) {
-    result = `No Winner "Your selection is ${playerSelection} 
-              and Computer selection is ${computerSelection} too"`;
-  } else {
-    result = `You Lose! ${computerSelection} beat ${playerSelection}`;
-  }
-
-  return result;
-}
-
-// make a best-of-five game and add score for each player
-
 let playerScore = 0;
 let computerScore = 0;
+let round = 1;
+let container = document.querySelector("div");
+let result;
 
-function game() {
-  const gameRounds = 5;
-  for (let i = 1; i <= gameRounds; i++) {
-    playerSelection = prompt(
-      `Please select one of the list: "rock, paper, scissors"`
-    ).toLowerCase();
-    computerSelection = getComputerChoice();
-    playRound(playerSelection, computerSelection);
-    console.log(`Round `, i);
-
-    if (result.charAt(4) == "W") {
-      console.log(
-        `player score ${playerScore++}`,
-        `computer score ${computerScore}`
-      );
-    } else if (result.charAt(4) == "L") {
-      console.log(
-        `player score ${playerScore}`,
-        `computer score ${computerScore++}`
-      );
-    } else {
-      console.log(
-        `player score ${playerScore}`,
-        `computer score ${computerScore}`
-      );
+const buttons = document.querySelectorAll("button");
+buttons.forEach((button) => {
+  button.addEventListener("click", (playerSelection, computerSelection) => {
+    if (playerScore === 5 || computerScore === 5) {
+      playerScore = 0;
+      computerScore = 0;
+      round = 1;
+      container.textContent = "";
     }
 
-    console.log(playRound(playerSelection, computerSelection), "\n ");
-  }
+    playerSelection = button.textContent;
+    computerSelection = getComputerChoice();
+    let par = document.createElement("p");
+
+    if (
+      (playerSelection == "rock" && computerSelection == "scissors") ||
+      (playerSelection == "scissors" && computerSelection == "paper") ||
+      (playerSelection == "paper" && computerSelection == "rock")
+    ) {
+      result = `You Win! ${playerSelection} beat ${computerSelection}`;
+    } else if (playerSelection == computerSelection) {
+      result = `No Winner "Your selection is ${playerSelection} 
+              and Computer selection is ${computerSelection} too"`;
+    } else {
+      result = `You Lose! ${computerSelection} beat ${playerSelection}`;
+    }
+
+    if (result.charAt(4) == "W") {
+      par.textContent = `Round ${round++}: ${result} /
+      player score = ${++playerScore} / 
+      computer score = ${computerScore}`;
+    } else if (result.charAt(4) == "L") {
+      par.textContent = `Round ${round++}: ${result} /
+      player score = ${playerScore} / 
+      computer score = ${++computerScore}`;
+    } else {
+      par.textContent = `Round ${round++}: ${result} /
+          player score = ${playerScore} /
+          computer score = ${computerScore}`;
+    }
+
+    container.appendChild(par);
+
+    if (playerScore === 5 || computerScore === 5) {
+      return displayTheWinner();
+    }
+  });
+});
+
+function displayTheWinner() {
+  let winner = document.createElement("p");
+  winner.style.cssText =
+    "color: red; background-color: yellow; display: inline-block;";
+  playerScore === 5
+    ? (winner.textContent = "Congratulation You win!")
+    : (winner.textContent = "You Lost!, try again");
+  container.appendChild(winner);
 }
-
-game();
-
-// make the final score
-
-function getFinalScore() {
-  console.log(
-    "------------------------------------------",
-    "\n ",
-    `\nThe final player score is: ${playerScore}`,
-    `\nThe final computer score is: ${computerScore}`
-  );
-  if (playerScore > computerScore) {
-    console.log("Congratulation you are The Winner");
-  } else if (computerScore > playerScore) {
-    console.log("You Lost try again");
-  } else {
-    console.log("No Winner!");
-  }
-}
-
-finalScore();
